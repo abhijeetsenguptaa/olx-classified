@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const { connection } = require('./configs/connection');
 const { userRoute } = require('./routes/user.route');
+const { adsRoute } = require('./routes/ad.route');
 
 
 
@@ -20,6 +21,8 @@ app.get('/', async (req, res) => {
 })
 
 app.use(userRoute);
+app.use('/classified', adsRoute);
+
 
 app.listen(PORT, async () => {
     try {
