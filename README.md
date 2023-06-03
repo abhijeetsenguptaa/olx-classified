@@ -1,7 +1,7 @@
 # API documentation OLX-Classified
 **This repository contains API documentation for OLX-Classified**
 1. **Overview**
-Basic API endpoint Deployed = `https://olx-classified.onrender.com/` 
+Basic API endpoint Deployed = `https://olx-classified.onrender.com/`\
 localhost = `http://localhost:8080`
 
 - for running the server locally 
@@ -15,10 +15,10 @@ localhost = `http://localhost:8080`
     }
 
 2. **Authentication**
-This API uses Role based Authorization.
-In order to perform user any crud in app, Token is required.
-Token can be obtained by creating account and logging into the system.
-No separate login routes for users and admins.
+This API uses Role based Authorization.\
+In order to perform user any crud in app, Token is required.\
+Token can be obtained by creating account and logging into the system.\
+No separate login routes for users and admins.\
 
 3. **User Registration**
 `URL: /signup`
