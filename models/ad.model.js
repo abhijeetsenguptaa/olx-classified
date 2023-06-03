@@ -13,6 +13,8 @@ const adSchema = mongoose.Schema({
     location: String,
     postedAt: Date,
     price: Number
+}, {
+    versionKey: false
 })
 
 
