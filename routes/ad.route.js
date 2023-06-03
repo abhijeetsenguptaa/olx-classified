@@ -72,6 +72,22 @@ adsRoute.get('/', async (req, res) => {
     }
 })
 
+adsRoute.get('/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const data = await AdModel.find({_id:id});
+        res.status(200).send({
+            status: true,
+            data: data
+        })
+    } catch {
+        res.status(404).send({
+            status: false,
+            msg: 'Error in fetching the data from the database.'
+        })
+    }
+})
+
 
 // All the functionalities routes starts here ------------------------------
 
@@ -129,7 +145,7 @@ adsRoute.get('/sortDesc', async (req, res) => {
     } catch {
         res.status(404).send({
             status: false,
-            msg: 'Error in fetching the required data in ascending order from the database.'
+            msg: 'Error in fetching the required data in descending order from the database.'
         })
     }
 })
