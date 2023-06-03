@@ -26,8 +26,8 @@ port: to listen the server.
 
 ---
 
-3. **User Registration**\
-    ### `URL: /signup`\
+3. **User Registration**
+    ### `URL: /signup`
     **Method:** POST\
     **Parameters:**\
     `{
@@ -43,7 +43,7 @@ port: to listen the server.
 ---
 
 4. **Login**
-   ### `URL: /login`\
+   ### `URL: /login`
    **Method:** POST\
    **Parameters:**\
    `{
