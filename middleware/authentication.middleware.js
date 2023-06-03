@@ -7,7 +7,7 @@ const authentication = async (req, res, next) => {
         if (token) {
             jsonwebtoken.verify(token, process.env.secret_key, async (err, decode) => {
                 if (decode) {
-                    req.body.user = decode["user-id"]
+                    req.body.userID = decode["user-id"]
                     next()
                 }
             })

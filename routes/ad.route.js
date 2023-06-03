@@ -76,15 +76,25 @@ adsRoute.get('/', async (req, res) => {
 // All the functionalities routes starts here ------------------------------
 
 adsRoute.get('/filter', async (req, res) => {
-    console.log('hi');
     try {
         const category = req.query.category;
-        const data = await AdModel.find({ category: category });
-        res.status(200).send({
-            status: true,
-            msg: `Result for ${category}.`,
-            data: data
-        })
+        if (category) {
+            const data = await AdModel.find({ category: category });
+            res.status(200).send({
+                status: true,
+                msg: `Result for ${category}.`,
+                data: data
+            })
+        }
+        const title = req.query.title;
+        if (title) {
+            const data = await AdModel.find({ name: { $regex: title} });
+            res.status(200).send({
+                status: true,
+                msg: `Result for ${title}.`,
+                data: data
+            })
+        }
     } catch {
         res.status(404).send({
             status: false,
