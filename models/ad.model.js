@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 
 const adSchema = mongoose.Schema({
+    userId : String,
     name: String,
     description: String,
     category: {

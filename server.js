@@ -4,6 +4,7 @@ const cors = require('cors');
 const { connection } = require('./configs/connection');
 const { userRoute } = require('./routes/user.route');
 const { adsRoute } = require('./routes/ad.route');
+const { authentication } = require('./middleware/authentication.middleware');
 
 
 
@@ -21,6 +22,7 @@ app.get('/', async (req, res) => {
 })
 
 app.use(userRoute);
+app.use(authentication);
 app.use('/classified', adsRoute);
 
 
