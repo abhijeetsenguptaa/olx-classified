@@ -59,11 +59,22 @@ adsRoute.delete('/:id', async (req, res) => {
 
 adsRoute.get('/', async (req, res) => {
     try {
-        const data = await AdModel.find();
-        res.status(200).send({
-            status: true,
-            data: data
-        })
+        const limit = req.query.limit;
+        const page = req.query.page;
+        if (limit) {
+            const data = await AdModel.find().skip((page-1) * limit).limit(limit);
+            res.status(200).send({
+                status: true,
+                data: data
+            })
+            console.log(limit,page);
+        }else{
+            const data = await AdModel.find();
+            res.status(200).send({
+                status: true,
+                data: data
+            })
+        }
     } catch {
         res.status(404).send({
             status: false,
@@ -75,7 +86,7 @@ adsRoute.get('/', async (req, res) => {
 adsRoute.get('/:id', async (req, res) => {
     try {
         const id = req.params.id
-        const data = await AdModel.find({_id:id});
+        const data = await AdModel.find({ _id: id });
         res.status(200).send({
             status: true,
             data: data
@@ -104,7 +115,7 @@ adsRoute.get('/filter', async (req, res) => {
         }
         const title = req.query.title;
         if (title) {
-            const data = await AdModel.find({ name: { $regex: title} });
+            const data = await AdModel.find({ name: { $regex: title } });
             res.status(200).send({
                 status: true,
                 msg: `Result for ${title}.`,
