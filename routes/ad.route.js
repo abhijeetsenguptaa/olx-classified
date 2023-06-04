@@ -57,36 +57,9 @@ adsRoute.delete('/:id', async (req, res) => {
     }
 })
 
-adsRoute.get('/', async (req, res) => {
-    try {
-        const limit = req.query.limit;
-        const page = req.query.page;
-        if (limit) {
-            const data = await AdModel.find().skip((page-1) * limit).limit(limit);
-            res.status(200).send({
-                status: true,
-                data: data
-            })
-            console.log(limit,page);
-        }else{
-            const data = await AdModel.find();
-            res.status(200).send({
-                status: true,
-                data: data
-            })
-        }
-    } catch {
-        res.status(404).send({
-            status: false,
-            msg: 'Error in fetching the data from the database.'
-        })
-    }
-})
-
 adsRoute.get('/:id', async (req, res) => {
     try {
-        const id = req.params.id
-        const data = await AdModel.find({ _id: id });
+        const data = await AdModel.find();
         res.status(200).send({
             status: true,
             data: data
@@ -94,10 +67,26 @@ adsRoute.get('/:id', async (req, res) => {
     } catch {
         res.status(404).send({
             status: false,
-            msg: 'Error in fetching the data from the database.'
+            msg: 'Error in fetching the data from the database.X'
         })
     }
 })
+
+// adsRoute.get('/:id', async (req, res) => {
+//     try {
+//         const id = req.params.id
+//         const data = await AdModel.find({ _id: id });
+//         res.status(200).send({
+//             status: true,
+//             data: data
+//         })
+//     } catch {
+//         res.status(404).send({
+//             status: false,
+//             msg: 'Error in fetching the data from the database.Y'
+//         })
+//     }
+// })
 
 
 // All the functionalities routes starts here ------------------------------
@@ -105,6 +94,17 @@ adsRoute.get('/:id', async (req, res) => {
 adsRoute.get('/filter', async (req, res) => {
     try {
         const category = req.query.category;
+        const title = req.query.title;
+        const limit = req.query.limit;
+        const page = req.query.page;
+        if (limit) {
+            const data = await AdModel.find().skip((page - 1) * limit).limit(limit);
+            res.status(200).send({
+                status: true,
+                data: data
+            })
+            console.log(limit, page);
+        }
         if (category) {
             const data = await AdModel.find({ category: category });
             res.status(200).send({
@@ -113,7 +113,6 @@ adsRoute.get('/filter', async (req, res) => {
                 data: data
             })
         }
-        const title = req.query.title;
         if (title) {
             const data = await AdModel.find({ name: { $regex: title } });
             res.status(200).send({
