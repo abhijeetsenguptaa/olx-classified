@@ -90,7 +90,7 @@ port: to listen the server.
 ---
 
 7. **Specific Item with ID**
-   ### `URL: /classified/:id`
+   ### `URL: /classified/filter/?id`
    **Method:** GET\
    **Responses**\
    200 (OK) : {data : Item with the specific ID.}\

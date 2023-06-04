@@ -67,43 +67,33 @@ adsRoute.get('/', async (req, res) => {
     } catch {
         res.status(404).send({
             status: false,
-            msg: 'Error in fetching the data from the database.X'
+            msg: 'Error in fetching the data from the database.'
         })
     }
 })
-
-// adsRoute.get('/:id', async (req, res) => {
-//     try {
-//         const id = req.params.id
-//         const data = await AdModel.find({ _id: id });
-//         res.status(200).send({
-//             status: true,
-//             data: data
-//         })
-//     } catch {
-//         res.status(404).send({
-//             status: false,
-//             msg: 'Error in fetching the data from the database.Y'
-//         })
-//     }
-// })
 
 
 // All the functionalities routes starts here ------------------------------
 
 adsRoute.get('/filter', async (req, res) => {
     try {
+        const id = req.query.id;
         const category = req.query.category;
         const title = req.query.title;
         const limit = req.query.limit;
         const page = req.query.page;
-        if (limit) {
+        if (id) {
+            const data = await AdModel.find({ _id: id });
+            res.status(200).send({
+                status: true,
+                data: data
+            })
+        } if (limit) {
             const data = await AdModel.find().skip((page - 1) * limit).limit(limit);
             res.status(200).send({
                 status: true,
                 data: data
             })
-            console.log(limit, page);
         }
         if (category) {
             const data = await AdModel.find({ category: category });
@@ -114,7 +104,7 @@ adsRoute.get('/filter', async (req, res) => {
             })
         }
         if (title) {
-            const data = await AdModel.find({ name: { $regex: title } });
+            const data = await AdModel.find({ name: { $regex: new RegExp(title, 'i') } });
             res.status(200).send({
                 status: true,
                 msg: `Result for ${title}.`,
