@@ -57,7 +57,7 @@ adsRoute.delete('/:id', async (req, res) => {
     }
 })
 
-adsRoute.get('/:id', async (req, res) => {
+adsRoute.get('/', async (req, res) => {
     try {
         const data = await AdModel.find();
         res.status(200).send({
